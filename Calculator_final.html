@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="Calculator_final.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Simple Calculator</h1>
+      <div class="calculator">
+        <input type="text" name="screen" id="display" />
+        <table>
+          <tr>
+            <td><button>(</button></td>
+            <td><button>)</button></td>
+            <td><button>C</button></td>
+            <td><button>=</button></td>
+          </tr>
+          <tr>
+            <td><button>9</button></td>
+            <td><button>8</button></td>
+            <td><button>7</button></td>
+            <td><button>+</button></td>
+          </tr>
+          <tr>
+            <td><button>6</button></td>
+            <td><button>5</button></td>
+            <td><button>4</button></td>
+            <td><button>-</button></td>
+          </tr>
+          <tr>
+            <td><button>3</button></td>
+            <td><button>2</button></td>
+            <td><button>1</button></td>
+            <td><button>*</button></td>
+          </tr>
+          <tr>
+            <td><button>0</button></td>
+            <td><button>.</button></td>
+            <td><button>%</button></td>
+            <td><button>/</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <script>
+      // Get the display element
+      const screen = document.getElementById("display");
+      // Get all the buttons
+      const buttons = document.querySelectorAll("button");
+      // Initialize the screen value
+      let screenValue = "";
+
+      // Attach click event listeners to each button
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          // Get the text content of the clicked button
+          const buttonText = button.innerText;
+
+          // Handle button clicks based on the button's text content
+          if (buttonText === "X") {
+            // Replace "X" with "*" for multiplication operation
+            screenValue += "*";
+          } else if (buttonText === "C") {
+            // Clear the screen value
+            screenValue = "";
+          } else if (buttonText === "=") {
+            // Evaluate the screen value and handle errors
+            try {
+              screenValue = eval(screenValue);
+            } catch (error) {
+              screenValue = "Expression error";
+            }
+          } else {
+            // Append the button's text content to the screen value
+            screenValue += buttonText;
+          }
+
+          // Update the display with the new screen value
+          screen.value = screenValue;
+        });
+      });
+    </script>
+  </body>
+</html>
