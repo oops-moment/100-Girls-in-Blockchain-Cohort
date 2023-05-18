@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Digital Clock by Prisha</title>
+    <style>
+      body {
+        text-align: center;
+        background-color: #f2f2f2;
+      }
+
+      h1 {
+        font-size: 24px;
+        color: #333;
+      }
+
+      #clock {
+        font-size: 48px;
+        font-family: monospace;
+        color: #555;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        display: inline-block;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Current Time:</h1>
+    <div id="clock"></div>
+
+    <script>
+      function formatNumber(number) {
+        return number < 10 ? "0" + number : number;
+      }
+
+      function updateClock() {
+        var currentTime = new Date();
+        var hours = formatNumber(currentTime.getHours());
+        var minutes = formatNumber(currentTime.getMinutes());
+        var seconds = formatNumber(currentTime.getSeconds());
+
+        var finalTime = hours + ":" + minutes + ":" + seconds;
+
+        document.getElementById("clock").textContent = finalTime;
+      }
+
+      setInterval(updateClock, 1000);
+    </script>
+    <h4>By Prisha</h4>
+  </body>
+</html>
