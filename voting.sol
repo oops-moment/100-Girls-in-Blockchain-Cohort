@@ -107,3 +107,4 @@ contract Ballot {
         winnerName_ = proposals[winningProposal()].name;
     }
 }
+// hence final winner is decalred by traversing the array with maximum count 
