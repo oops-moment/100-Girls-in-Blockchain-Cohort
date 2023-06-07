@@ -1,0 +1,36 @@
+Contract Declaration: The contract is declared using the contract keyword followed by the contract name (SimpleAuction).
+
+Contract Variables:
+
+beneficiary (address payable): Stores the address of the beneficiary, the account that will receive the highest bid at the end of the auction.
+auctionEndTime (uint): Stores the end time of the auction as a Unix timestamp.
+highestBidder (address): Stores the address of the bidder who currently has the highest bid.
+highestBid (uint): Stores the value of the highest bid.
+pendingReturns (mapping): Maps addresses to the amount of Ether they have as pending returns (refundable bids).
+ended (bool): Indicates whether the auction has ended.
+Events: Two events are defined in this contract:
+
+HighestBidIncreased: Triggered when a new highest bid is placed.
+AuctionEnded: Triggered when the auction ends and the highest bid is transferred to the beneficiary.
+Errors: Four errors are defined using the error keyword. These errors are used to handle exceptional conditions during the execution of the contract.
+
+Constructor: The constructor function is called when the contract is deployed. It takes two arguments: biddingTime (the duration of the auction in seconds) and beneficiaryAddress (the address of the beneficiary). It initializes the beneficiary and auctionEndTime variables.
+
+Bid Function: The bid function is used by bidders to place their bids. It is marked as external and payable, which means it can only be called from outside the contract and can receive Ether along with the function call. The function performs the following steps:
+
+Checks if the auction has ended and reverts the call if it has.
+Verifies if the bid amount is higher than the current highest bid and reverts the call if it's not.
+If there was a previous highest bid, it adds the amount to the pendingReturns mapping of the previous highest bidder.
+Updates the highestBidder and highestBid variables with the new highest bid.
+Emits the HighestBidIncreased event.
+Withdraw Function: The withdraw function allows bidders to withdraw their pending returns (refundable bids). It returns a boolean indicating the success of the withdrawal. The function performs the following steps:
+
+Retrieves the amount of Ether pending for the caller from the pendingReturns mapping.
+If there is a positive amount, it sets the pending amount to zero and attempts to send the Ether back to the caller.
+If the send operation fails, it reverts the amount to the original pending amount and returns false.
+AuctionEnd Function: The auctionEnd function is called by the beneficiary to end the auction and transfer the highest bid to themselves. It performs the following steps:
+
+Checks if the auction has already ended or if the current time is before the end time, and reverts the call if either condition is true.
+Sets the ended variable to true.
+Emits the AuctionEnded event.
+Transfers the highest bid amount to the beneficiary using the transfer function
